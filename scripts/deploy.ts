@@ -1,15 +1,23 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const ERCAddress = "0x5B38Da6a701c568545dCfcB03FcB875f56beddC4";
+  const InitialAddress = "0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2";
 
-  const saveERC20 = await ethers.deployContract("SaveERC20", [ERCAddress]);
+  const ERC20Token = await ethers.deployContract("ERC20Token", [
+    InitialAddress,
+    "LeviToken",
+    "LITO",
+  ]);
 
-  await saveERC20.waitForDeployment();
+  await ERC20Token.waitForDeployment();
 
-  console.log(
-   `Contract has been deployed to ${saveERC20.target}`
-  );
+  console.log(`Contract has been deployed to ${ERC20Token.target}`);
+
+  const SaveERC20 = await ethers.deployContract("SaveERC20", [ERC20Token.target]);
+
+  console.log(`Contract has been deployed to ${SaveERC20.target}`);
+
+  await SaveERC20.waitForDeployment();
 }
 
 // We recommend this pattern to be able to use async/await everywhere

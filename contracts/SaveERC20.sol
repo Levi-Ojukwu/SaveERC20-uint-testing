@@ -13,7 +13,7 @@ contract SaveERC20 {
 
     constructor(address _savingToken) {
         savingToken = _savingToken;
-        owner = msg.sender;
+        owner = msg.sender ;
     }
 
     function deposit(uint256 _amount) external {
